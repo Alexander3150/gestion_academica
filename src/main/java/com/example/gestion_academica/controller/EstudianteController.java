@@ -1,11 +1,13 @@
 package com.example.gestion_academica.controller;
 
+
 import java.util.List;
 
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.gestion_academica.dto.EstudianteDTO;
 import com.example.gestion_academica.entities.Estudiante;
 import com.example.gestion_academica.service.EstudianteService;
 
@@ -20,20 +22,23 @@ public class EstudianteController {
 
     private final EstudianteService service;
 
+    // GET con DTO + filtros: /api/estudiantes?apellido=Perez  ó  ?nombre=an
     @GetMapping
-    public List<Estudiante> list() {
-        return service.findAll();
+    public List<EstudianteDTO> list(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) String apellido) {
+        return service.findAllDTO(nombre, apellido);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Estudiante> get(@PathVariable String id) {
-        return ResponseEntity.ok(service.findById(id));
+    public ResponseEntity<EstudianteDTO> get(@PathVariable String id) {
+        return ResponseEntity.ok(service.findDTOById(id));
     }
 
+    // CRUD restante (opcional, como ya lo tenías)
     @PostMapping
     public ResponseEntity<Estudiante> create(@Valid @RequestBody Estudiante body) {
-        Estudiante e = service.create(body);
-        return ResponseEntity.status(HttpStatus.CREATED).body(e);
+        return ResponseEntity.status(201).body(service.create(body));
     }
 
     @PutMapping("/{id}")

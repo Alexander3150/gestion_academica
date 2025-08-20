@@ -1,11 +1,13 @@
 package com.example.gestion_academica.controller;
 
+
 import java.util.List;
 
-import org.springframework.http.*;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.gestion_academica.dto.CursoDTO;
 import com.example.gestion_academica.entities.Curso;
 import com.example.gestion_academica.service.CursoService;
 
@@ -20,20 +22,23 @@ public class CursoController {
 
     private final CursoService service;
 
+    // GET con DTO + filtros: /api/cursos?nombre=datos&creditos=4
     @GetMapping
-    public List<Curso> list() {
-        return service.findAll();
+    public List<CursoDTO> list(
+            @RequestParam(required = false) String nombre,
+            @RequestParam(required = false) Short creditos) {
+        return service.findAllDTO(nombre, creditos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Curso> get(@PathVariable String id) {
-        return ResponseEntity.ok(service.findById(id));
+    public ResponseEntity<CursoDTO> get(@PathVariable String id) {
+        return ResponseEntity.ok(service.findDTOById(id));
     }
 
+    // CRUD restante (opcional, como ya lo tenías)
     @PostMapping
     public ResponseEntity<Curso> create(@Valid @RequestBody Curso body) {
-        Curso c = service.create(body);
-        return ResponseEntity.status(HttpStatus.CREATED).body(c);
+        return ResponseEntity.status(201).body(service.create(body));
     }
 
     @PutMapping("/{id}")
