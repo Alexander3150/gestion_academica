@@ -56,7 +56,7 @@ public class ProfesorServiceImpl implements ProfesorService {
         repo.delete(findById(id));
     }
 
-    // ------- NUEVO: DTOs + filtros -------
+    // ------- : DTOs + filtros -------
     @Override
     @Transactional(readOnly = true)
     public List<ProfesorDTO> findAllDTO(String q, String apellido) {
@@ -88,3 +88,4 @@ public class ProfesorServiceImpl implements ProfesorService {
                 .build();
     }
 }
+ 

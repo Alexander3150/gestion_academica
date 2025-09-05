@@ -35,7 +35,7 @@ public class ProfesorController {
         return ResponseEntity.ok(service.findDTOById(id));
     }
 
-    // ------- Resto CRUD (si quieres mantenerlos como estaban) -------
+  
     @PostMapping
     public ResponseEntity<Profesor> create(@Valid @RequestBody Profesor body) {
         return ResponseEntity.status(201).body(service.create(body));

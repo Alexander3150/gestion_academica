@@ -35,7 +35,7 @@ public class CursoController {
         return ResponseEntity.ok(service.findDTOById(id));
     }
 
-    // CRUD restante (opcional, como ya lo tenías)
+    // CRUD restante
     @PostMapping
     public ResponseEntity<Curso> create(@Valid @RequestBody Curso body) {
         return ResponseEntity.status(201).body(service.create(body));

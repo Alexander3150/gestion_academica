@@ -11,3 +11,4 @@ public interface ProfesorRepository extends JpaRepository<Profesor, String> {
     List<Profesor> findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCase(String nombre, String apellido);
     List<Profesor> findByApellidoContainingIgnoreCase(String apellido);
 }
+ 
